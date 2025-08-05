@@ -54,6 +54,13 @@ class Timesheet(object):
 
         return new_entry
 
+    def set_date(self, date: datetime):
+        date_input_selector = '#b_s71_s84_s85_l84s85_ctl00_date_in_period_i'
+        date_input = self.browser.find_element(By.CSS_SELECTOR, date_input_selector)
+        date_input.send_keys(date.strftime('%m/%d/%Y'))
+        date_input.send_keys(Keys.TAB)
+
+
     def find_draft_entry_by(self, workorder: str, activity: str, description: str) -> Entry:
         from_existing_entries = self.__get_existing_entry("Draft", workorder, activity, description)
         return from_existing_entries
