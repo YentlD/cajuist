@@ -4,6 +4,7 @@ import locale
 from datetime import datetime
 
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -65,7 +66,7 @@ class Entry:
         entries = list(
             map(
                 lambda tr: Entry(browser, tr),
-                container.find_elements_by_xpath('tbody/tr')[:-2]
+                container.find_elements(By.XPATH, 'tbody/tr')[:-2]
             )
         )
 
@@ -74,24 +75,24 @@ class Entry:
     ### PRIVATE ###
     @staticmethod
     def __container(browser):
-        entries_container = browser.find_element_by_css_selector('#b_s89_g89s90')
+        entries_container = browser.find_element(By.CSS_SELECTOR, '#b_s89_g89s90')
         return entries_container
 
     def __fresh(self):
         # CAMIS recreates the whole <table> all the time
         container = Entry.__container(self.browser)
-        entry_tr = container.find_element_by_id(self.entry_id)
+        entry_tr = container.find_element(By.ID, self.entry_id)
 
         return entry_tr
 
     def __find_text(self, cell_index: int):
         xpath = f'td[{cell_index}]/div[1][not(*)]'
-        text_elem = self.__fresh().find_element_by_xpath(xpath)
+        text_elem = self.__fresh().find_element(By.XPATH, xpath)
         return text_elem
 
     def __find_input(self, cell_index: int):
         xpath = f'td[{cell_index}]//tbody/tr[1]/td[1]//input[1]'
-        input_elem = self.__fresh().find_element_by_xpath(xpath)
+        input_elem = self.__fresh().find_element(By.XPATH, xpath)
         return input_elem
 
     def __get_entry_attribute(self, cell_index: int):
@@ -127,7 +128,7 @@ class Entry:
     def __is_cell_empty(self, cell_index: int):
         xpath = f'td[{cell_index}][not(*)]'
         try:
-            self.__fresh().find_element_by_xpath(xpath)
+            self.__fresh().find_element(By.XPATH, xpath)
             return True
         except:
             return False

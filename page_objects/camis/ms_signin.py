@@ -1,7 +1,10 @@
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class MsSignin:
@@ -12,14 +15,14 @@ class MsSignin:
 
     def is_visible(self):
         try:
-            self.browser.find_element_by_css_selector(self.login_field_selector)
+            self.browser.find_element(By.CSS_SELECTOR, self.login_field_selector)
         except NoSuchElementException:
             return False
 
         return True
 
     def start_login(self, ad_login: str):
-        login_field = self.browser.find_element_by_css_selector(self.login_field_selector)
+        login_field = self.browser.find_element(By.CSS_SELECTOR, self.login_field_selector)
         login_field.send_keys(ad_login)
         login_field.send_keys(Keys.ENTER)
 

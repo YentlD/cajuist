@@ -10,6 +10,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
 
 from page_objects.camis.entry import Entry
 from page_objects.camis.ms_signin import MsSignin
@@ -24,7 +26,7 @@ class Timesheet(object):
 
         self.__set_headless_options(chrome_options, headless)
         
-        self.browser = webdriver.Chrome('selenium_drivers\\chromedriver.exe', options=chrome_options)
+        self.browser = webdriver.Chrome(options=chrome_options)
         self.browser.get('https://camis.cegeka.com/agresso')
         self.browser.implicitly_wait(2)
 
@@ -44,7 +46,7 @@ class Timesheet(object):
 
     def add_new_entry(self):
         add_btn_selector = '#b_s89_g89s90_buttons__newButton'
-        add_btn = self.browser.find_element_by_css_selector(add_btn_selector)
+        add_btn = self.browser.find_element(By.CSS_SELECTOR, add_btn_selector)
         self.browser.execute_script("arguments[0].scrollIntoView();", add_btn) # sometimes the Add button may be out of view
         add_btn.click()
 
@@ -58,7 +60,7 @@ class Timesheet(object):
 
     def save(self):
         save_btn_selector = '#b\\$tblsysSave'
-        save_btn = self.browser.find_element_by_css_selector(save_btn_selector)
+        save_btn = self.browser.find_element(By.CSS_SELECTOR, save_btn_selector)
         save_btn.click()
 
         self.__wait_for_success_popup()
