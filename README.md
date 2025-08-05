@@ -32,6 +32,8 @@ You can use an existing script or write your own that will perform the simple 3 
 - Create a file called .env and put your Cegeka AD login in there, like this:
     ```
     AD_LOGIN='firstname.lastname@cegeka.com'
+    AD_PASSWORD='xxxxx' (optional)
+    TOTP_SECRET='xxxxx' (optional)
     ```
 - Write your own script or use an existing one if it matches your needs
 

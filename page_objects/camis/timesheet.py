@@ -41,7 +41,7 @@ class Timesheet(object):
     def __sign_in(self):
         ms_signin = MsSignin(self.browser)
         if (ms_signin.is_visible()):
-            ms_signin.start_login(os.getenv('AD_LOGIN'))
+            ms_signin.start_login(os.getenv('AD_LOGIN'), os.getenv('AD_PASSWORD'))
             print('\tApprove sign-in!')
 
     def add_new_entry(self):
