@@ -39,6 +39,22 @@ class Entry:
     def get_description(self):
         return self.__get_entry_attribute(Entry.DESCRIPTION_INDEX)
 
+    def get_errors(self):
+        warnings = []
+        
+        try:
+            warning_elements = self.browser.find_elements(By.CSS_SELECTOR, 'table[id="warningList"]')
+            for warning_elem in warning_elements:
+                warning_text = warning_elem.text.strip()
+                warning_msg = warning_text.split("Warning:\nActivity: ")[-1]
+                if warning_msg:
+                    warnings.append(warning_msg)
+                    
+        except Exception as e:
+            pass
+        
+        return warnings
+        
     def set_workorder(self, workorder: str):
         self.__set_entry_attribute(Entry.WORKORDER_INDEX, workorder)
 
