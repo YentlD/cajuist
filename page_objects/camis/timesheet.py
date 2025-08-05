@@ -115,10 +115,23 @@ class Timesheet(object):
         #)
 
     def __set_headless_options(self, chrome_options: Options, headless: bool):
-        return
-        
-        # DOESN'T REALLY WORK YET
-        if (headless):
-            chrome_options.add_argument("--headless")
+        if headless:
+            chrome_options.add_argument("--headless=new")  # Use new headless mode
             chrome_options.add_argument("--window-size=1920x1080")
-            locale.setlocale(locale.LC_ALL, 'nl_BE')
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--disable-gpu")
+            chrome_options.add_argument("--disable-extensions")
+            chrome_options.add_argument("--disable-plugins")
+            chrome_options.add_argument("--disable-images")
+            chrome_options.add_argument("--disable-javascript")  # Optional: disable JS for faster loading
+            chrome_options.add_argument("--disable-web-security")
+            chrome_options.add_argument("--allow-running-insecure-content")
+            chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+            
+            # Set locale for consistent behavior
+            try:
+                locale.setlocale(locale.LC_ALL, 'nl_BE')
+            except locale.Error:
+                # Fallback to default locale if nl_BE is not available
+                pass
