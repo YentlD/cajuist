@@ -54,12 +54,12 @@ An example of such a script is [toggl_to_camis.py](toggl_to_camis.py), which per
 
 ### Development Mode
 ```bash
-python api_camis.py
+python camis_api.py
 ```
 
 ### Production Mode
 ```bash
-uvicorn api_camis:app --host 0.0.0.0 --port 8000
+uvicorn camis_api:app --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
